@@ -1,9 +1,6 @@
 package com.financiauto.webservice.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
@@ -13,6 +10,7 @@ import org.antlr.v4.runtime.misc.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "vehicles")
 public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
