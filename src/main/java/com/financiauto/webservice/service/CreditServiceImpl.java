@@ -137,7 +137,7 @@ public class CreditServiceImpl implements CreditService {
         for (var i = 1; i <= numPeriod; i++) {
             Period period = new Period();
             if (numGracePeriods > 0) {
-                if (numGracePeriods == 1) {
+                if (i == 1) {
                     switch (credit.getGracePeriodType()) {
                         case TOTALY -> {
                             period.setPeriodIndex(i);
@@ -163,18 +163,7 @@ public class CreditServiceImpl implements CreditService {
                             paymentSchedule.add(period);
                             memoryCacheValue = period.getEndBalance();
                         }
-                        case NONE -> {
-                            period.setPeriodIndex(i);
-                            period.setTEP(rateEffectiveValue);
-                            period.setGracePeriodType(GracePeriodType.NONE);
-                            period.setOpenBalance(credit.getSellingPrice() - initialQuoteValue);
-                            period.setInterest(period.getOpenBalance() * period.getTEP());
-                            period.setQuote(staticFee);
-                            period.setAmortization(period.getQuote() - period.getInterest());
-                            period.setEndBalance(period.getOpenBalance() - period.getAmortization());
-                            paymentSchedule.add(period);
-                            memoryCacheValue = period.getEndBalance();
-                        }
+
                     }
 
                 } else {
