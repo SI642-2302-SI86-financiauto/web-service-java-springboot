@@ -139,10 +139,10 @@ public class CreditServiceImpl implements CreditService {
             if (numGracePeriods > 0) {
                 if (i == 1) {
                     switch (credit.getGracePeriodType()) {
-                        case TOTALY -> {
+                        case T -> {
                             period.setPeriodIndex(i);
                             period.setTEP(rateEffectiveValue);
-                            period.setGracePeriodType(GracePeriodType.TOTALY);
+                            period.setGracePeriodType(GracePeriodType.T);
                             period.setOpenBalance(credit.getSellingPrice() - initialQuoteValue);
                             period.setInterest(period.getOpenBalance() * period.getTEP());
                             period.setQuote(0);
@@ -151,10 +151,10 @@ public class CreditServiceImpl implements CreditService {
                             paymentSchedule.add(period);
                             memoryCacheValue = period.getEndBalance();
                         }
-                        case PARTIALLY -> {
+                        case P -> {
                             period.setPeriodIndex(i);
                             period.setTEP(rateEffectiveValue);
-                            period.setGracePeriodType(GracePeriodType.PARTIALLY);
+                            period.setGracePeriodType(GracePeriodType.P);
                             period.setOpenBalance(credit.getSellingPrice() - initialQuoteValue);
                             period.setInterest(period.getOpenBalance() * period.getTEP());
                             period.setQuote(period.getInterest());
@@ -168,10 +168,10 @@ public class CreditServiceImpl implements CreditService {
 
                 } else {
                     switch (credit.getGracePeriodType()) {
-                        case TOTALY -> {
+                        case T -> {
                             period.setPeriodIndex(i);
                             period.setTEP(rateEffectiveValue);
-                            period.setGracePeriodType(GracePeriodType.TOTALY);
+                            period.setGracePeriodType(GracePeriodType.T);
                             period.setOpenBalance(memoryCacheValue);
                             period.setInterest(period.getOpenBalance() * period.getTEP());
                             period.setQuote(0);
@@ -180,10 +180,10 @@ public class CreditServiceImpl implements CreditService {
                             paymentSchedule.add(period);
                             memoryCacheValue = period.getEndBalance();
                         }
-                        case PARTIALLY -> {
+                        case P -> {
                             period.setPeriodIndex(i);
                             period.setTEP(rateEffectiveValue);
-                            period.setGracePeriodType(GracePeriodType.PARTIALLY);
+                            period.setGracePeriodType(GracePeriodType.P);
                             period.setOpenBalance(memoryCacheValue);
                             period.setInterest(period.getOpenBalance() * period.getTEP());
                             period.setQuote(period.getInterest());
@@ -192,10 +192,10 @@ public class CreditServiceImpl implements CreditService {
                             paymentSchedule.add(period);
                             memoryCacheValue = period.getEndBalance();
                         }
-                        case NONE -> {
+                        case N -> {
                             period.setPeriodIndex(i);
                             period.setTEP(rateEffectiveValue);
-                            period.setGracePeriodType(GracePeriodType.NONE);
+                            period.setGracePeriodType(GracePeriodType.N);
                             period.setOpenBalance(memoryCacheValue);
                             period.setInterest(period.getOpenBalance() * period.getTEP());
                             period.setQuote(staticFee);
@@ -211,7 +211,7 @@ public class CreditServiceImpl implements CreditService {
                 if (i == 1) {
                     period.setPeriodIndex(i);
                     period.setTEP(rateEffectiveValue);
-                    period.setGracePeriodType(GracePeriodType.NONE);
+                    period.setGracePeriodType(GracePeriodType.N);
                     period.setOpenBalance(credit.getSellingPrice() - initialQuoteValue);
                     period.setInterest(period.getOpenBalance() * period.getTEP());
                     period.setQuote(staticFee);
@@ -222,7 +222,7 @@ public class CreditServiceImpl implements CreditService {
                 } else {
                     period.setPeriodIndex(i);
                     period.setTEP(rateEffectiveValue);
-                    period.setGracePeriodType(GracePeriodType.NONE);
+                    period.setGracePeriodType(GracePeriodType.N);
                     period.setOpenBalance(memoryCacheValue);
                     period.setInterest(period.getOpenBalance() * period.getTEP());
                     period.setQuote(staticFee);
@@ -237,7 +237,7 @@ public class CreditServiceImpl implements CreditService {
         Period finalPeriod = new Period();
         finalPeriod.setPeriodIndex(numPeriod + 1);
         finalPeriod.setTEP(0);
-        finalPeriod.setGracePeriodType(GracePeriodType.NONE);
+        finalPeriod.setGracePeriodType(GracePeriodType.N);
         finalPeriod.setOpenBalance(memoryCacheValue);
         finalPeriod.setInterest(0);
         finalPeriod.setQuote(memoryCacheValue);
